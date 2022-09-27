@@ -1,5 +1,7 @@
 # cordova-plugin-sim
 
+# This is a fork of the original that will only return androidx allowed info 
+
 [![npm](https://img.shields.io/npm/v/cordova-plugin-sim.svg)](https://www.npmjs.com/package/cordova-plugin-sim)
 [![Code Climate](https://codeclimate.com/github/pbakondy/cordova-plugin-sim/badges/gpa.svg)](https://codeclimate.com/github/pbakondy/cordova-plugin-sim)
 ![Platform](https://img.shields.io/badge/platform-android%20%7C%20ios%20%7C%20windows-lightgrey.svg)
