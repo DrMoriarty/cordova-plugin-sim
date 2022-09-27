@@ -109,10 +109,10 @@ public class Sim extends CordovaPlugin {
               boolean networkRoaming = subscriptionManager.isNetworkRoaming(simSlotIndex);
 
               String deviceId = null;
-              // TelephonyManager.getDeviceId(slotId) requires API 23
-              if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                deviceId = manager.getDeviceId(simSlotIndex);
-              }
+              //// TelephonyManager.getDeviceId(slotId) requires API 23
+              //if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+               // deviceId = manager.getDeviceId(simSlotIndex);
+              //}
 
               JSONObject simData = new JSONObject();
 
@@ -159,13 +159,14 @@ public class Sim extends CordovaPlugin {
       int simState = manager.getSimState();
 
       boolean isNetworkRoaming = manager.isNetworkRoaming();
+		boolean isNetworkRoaming = true;
 
       if (simPermissionGranted(Manifest.permission.READ_PHONE_STATE)) {
-        phoneNumber = manager.getLine1Number();
-        deviceId = manager.getDeviceId();
-        deviceSoftwareVersion = manager.getDeviceSoftwareVersion();
-        simSerialNumber = manager.getSimSerialNumber();
-        subscriberId = manager.getSubscriberId();
+        //phoneNumber = manager.getLine1Number();
+        //deviceId = manager.getDeviceId();
+        //deviceSoftwareVersion = manager.getDeviceSoftwareVersion();
+        simSerialNumber = "";
+        //subscriberId = manager.getSubscriberId();
       }
 
       String mcc = "";
