@@ -154,9 +154,9 @@ public class Sim extends CordovaPlugin {
       String simSerialNumber = null;
       String subscriberId = null;
 
-      int callState = manager.getCallState();
+      //int callState = manager.getCallState();
       int dataActivity = manager.getDataActivity();
-      int networkType = manager.getNetworkType();
+      //int networkType = manager.getNetworkType();
       int phoneType = manager.getPhoneType();
       int simState = manager.getSimState();
 
@@ -188,9 +188,9 @@ public class Sim extends CordovaPlugin {
       result.put("mcc", mcc);
       result.put("mnc", mnc);
 
-      result.put("callState", callState);
+      //result.put("callState", callState);
       result.put("dataActivity", dataActivity);
-      result.put("networkType", networkType);
+      //result.put("networkType", networkType);
       result.put("phoneType", phoneType);
       result.put("simState", simState);
 
