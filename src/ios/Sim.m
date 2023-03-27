@@ -17,8 +17,21 @@
 
 - (void)getSimInfo:(CDVInvokedUrlCommand*)command
 {
-  CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
-  CTCarrier *carrier = [netinfo subscriberCellularProvider];
+  CTTelephonyNetworkInfo *networkInfo = [[CTTelephonyNetworkInfo alloc] init];
+  CTCarrier *carrier = nil;
+  if (@available(iOS 12.1, *)) {
+      NSDictionary<NSString *,CTCarrier *> *services = [networkInfo serviceSubscriberCellularProviders];
+      for (NSString * key in services.allKeys) {
+          CTCarrier *c = services[key];
+          // take first found with non-empty name
+          if (c.carrierName != nil) {
+              carrier = c;
+              break;
+          }
+      }
+  } else {
+      carrier = [networkInfo subscriberCellularProvider];
+  }
 
   BOOL allowsVOIPResult = [carrier allowsVOIP];
   NSString *carrierNameResult = [carrier carrierName];
