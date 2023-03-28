@@ -23,8 +23,8 @@
       NSDictionary<NSString *,CTCarrier *> *services = [networkInfo serviceSubscriberCellularProviders];
       for (NSString * key in services.allKeys) {
           CTCarrier *c = services[key];
-          // take first found with non-empty name
-          if (c.carrierName != nil) {
+          // take first found with non-empty country code
+          if (c.isoCountryCode != nil && ![c.isoCountryCode isEqual:@""]) {
               carrier = c;
               break;
           }
