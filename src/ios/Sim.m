@@ -17,13 +17,36 @@
 
 - (void)getSimInfo:(CDVInvokedUrlCommand*)command
 {
+  NSMutableArray *cardsArray = [NSMutableArray new];
   CTTelephonyNetworkInfo *networkInfo = [[CTTelephonyNetworkInfo alloc] init];
   CTCarrier *carrier = nil;
   if (@available(iOS 12.1, *)) {
       NSDictionary<NSString *,CTCarrier *> *services = [networkInfo serviceSubscriberCellularProviders];
       for (NSString * key in services.allKeys) {
           CTCarrier *c = services[key];
-          // take first found with non-empty country code
+
+          BOOL allowsVOIPResult = [c allowsVOIP];
+          NSString *carrierNameResult = [c carrierName];
+          NSString *carrierCountryResult = [c isoCountryCode];
+          NSString *carrierCodeResult = [c mobileCountryCode];
+          NSString *carrierNetworkResult = [c mobileNetworkCode];
+
+          if (!carrierNameResult) { carrierNameResult = @""; }
+          if (!carrierCountryResult) { carrierCountryResult = @""; }
+          if (!carrierCodeResult) { carrierCodeResult = @""; }
+          if (!carrierNetworkResult) { carrierNetworkResult = @""; }
+
+          NSDictionary *simData = [NSDictionary dictionaryWithObjectsAndKeys:
+            @(allowsVOIPResult), @"allowsVOIP",
+            carrierNameResult, @"carrierName",
+            carrierCountryResult, @"countryCode",
+            carrierCodeResult, @"mcc",
+            carrierNetworkResult, @"mnc",
+            cardsArray, @"cards",
+            nil];
+          [cardsArray addObject:simData];
+
+          // take first found with non-empty name
           if (c.isoCountryCode != nil && ![c.isoCountryCode isEqual:@""]) {
               carrier = c;
               break;
@@ -58,6 +81,7 @@
     carrierCountryResult, @"countryCode",
     carrierCodeResult, @"mcc",
     carrierNetworkResult, @"mnc",
+    cardsArray, @"cards",
     nil];
 
   CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:simData];
