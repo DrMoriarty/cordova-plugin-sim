@@ -42,7 +42,6 @@
             carrierCountryResult, @"countryCode",
             carrierCodeResult, @"mcc",
             carrierNetworkResult, @"mnc",
-            cardsArray, @"cards",
             nil];
           [cardsArray addObject:simData];
 
